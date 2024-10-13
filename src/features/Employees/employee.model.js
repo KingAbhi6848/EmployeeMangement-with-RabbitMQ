@@ -47,6 +47,11 @@ const employeeSchema = new mongoose.Schema({
       },
     },
   },
+  role: {
+    type: String,
+    default: 'employee',
+    immutable: true 
+  }
 });
 
 const Employee = mongoose.model('Employee', employeeSchema);
