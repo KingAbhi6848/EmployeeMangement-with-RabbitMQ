@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
-
-mongoose.connect('mongodb://127.0.0.1:27017/hrm');
+import dotenv from "dotenv";
+dotenv.config()
+const mongoDBURI = process.env.MONGODB_URI;
+mongoose.connect(mongoDBURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 

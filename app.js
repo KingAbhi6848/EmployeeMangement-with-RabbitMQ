@@ -5,7 +5,7 @@ import leaveRoute from './src/features/Leaves/leave.route.js';
 import attendanceRoute from './src/features/Attendance/attendance.route.js';
 import userRoute from './src/features/Users/user.route.js';
 const app = express();
-const port = 8000;
+const port = 2000;
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());

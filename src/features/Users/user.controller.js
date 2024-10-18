@@ -73,6 +73,7 @@ export default class UserController {
           message: 'Invalid email or password.'
         });
       }
+      
 
       const token = jwt.sign(
         { email: user.email, id: user._id, role: user.role },
@@ -82,6 +83,7 @@ export default class UserController {
 
       return res.status(200).send({
         success: true,
+        role:user.role,
         message: 'Login successful.',
         token,
       });

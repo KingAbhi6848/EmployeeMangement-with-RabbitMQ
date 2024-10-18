@@ -3,7 +3,8 @@ import Leave from "./leave.model.js";
 export default class leaveController {
   async getAll(req, res) {
     try {
-      const allLeaves = await Leave.find({});
+      const allLeaves = await Leave.find({}).populate('employeeId');
+      // const leaveData = await allLeaves.populate('Employee');
       return res.status(200).json({
         success: true,
         message: "Leave records fetched successfully",
@@ -20,16 +21,20 @@ export default class leaveController {
 
   async add(req, res) {
     try {
+      const employeeId = req.user.id;
       const { leaveType, date, status } = req.body;
-      const newLeave = await Leave.create({ leaveType, date, status });
-
-      if (!newLeave) {
+  
+      const existingLeave = await Leave.findOne({ employeeId, date });
+  
+      if (existingLeave) {
         return res.status(400).json({
           success: false,
-          message: "Failed to create leave record",
+          message: "Leave record already exists for this date",
         });
       }
-
+  
+      const newLeave = await Leave.create({ employeeId, leaveType, date, status });
+  
       return res.status(201).json({
         success: true,
         message: "Leave record created successfully",
@@ -43,6 +48,7 @@ export default class leaveController {
       });
     }
   }
+  
 
   async update(req, res) {
     try {

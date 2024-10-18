@@ -6,10 +6,20 @@ const employeeSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  officeId:{
+  type:String,
+  default: () => Date.now(),
+  required:true,
+  unique:true
+  },
   designation: {
     type: String,
     required: true,
     trim: true,
+  },
+  password:{
+    type:String,
+    
   },
   department: {
     type: String,
@@ -20,12 +30,14 @@ const employeeSchema = new mongoose.Schema({
     phone: {
       type: String,
       required: true,
+      unique:true,
       trim: true,
     },
     email: {
       type: String,
       required: true,
       trim: true,
+      unique:true,
       match: [/.+\@.+\..+/, 'Please fill a valid email address'],
     },
     address: {
